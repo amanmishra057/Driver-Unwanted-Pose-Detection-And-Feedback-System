@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+    <!-- Live Monitoring with camera feed (visible only to non-admin users) -->
+    {% if not is_admin %}
+    <div class="dashboard-card col-span-1 md:col-span-2 lg:col-span-2">
+        <h2 class="text-xl font-semibold">🚗 Live Monitoring</h2>
+        <p class="text-gray-400 mt-2 mb-4">Track driver activities in real-time.</p>
+        <div class="w-full overflow-hidden rounded-lg border border-gray-700">
+            <img src="{{ url_for('video_feed') }}" class="w-full" alt="Live Stream">
+        </div>
+    </div>
+    {% else %}
+    <div class="dashboard-card col-span-1 md:col-span-2 lg:col-span-2">
+        <h2 class="text-xl font-semibold">🚫 Live Monitoring Disabled</h2>
+        <p class="text-gray-400 mt-2 mb-4">Admins do not have access to live camera monitoring.</p>
+    </div>
+    {% endif %}
+
+    <!-- System Status -->
+    <div class="dashboard-card">
+        <h2 class="text-xl font-semibold">🛠 System Status</h2>
+        <p class="text-gray-400 mt-2">Everything is running smoothly.</p>
+        <ul class="mt-4 text-sm text-gray-400 list-disc pl-5">
+            <li>Model Loaded ✅</li>
+            <li>Live Detection Active 🎯</li>
+            <li>Audio/Visual Alerts Working 🔊</li>
+        </ul>
+    </div>
+
+    <!-- Quick Report Access -->
+    <div class="dashboard-card">
+        <h2 class="text-xl font-semibold">📊 AI Reports</h2>
+        <p class="text-gray-400 mt-2 mb-4">View real-time AI-generated reports.</p>
+        <a href="{{ url_for('reports') }}" class="text-blue-400 underline">View Reports</a>
+    </div>
+</section>
+{% endblock %}
